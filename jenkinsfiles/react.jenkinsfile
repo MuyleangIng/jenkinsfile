@@ -9,7 +9,7 @@ pipeline {
         stage('build with dockerfile') {
             steps {
                 
-                scripts{
+               
 
 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                        
@@ -20,7 +20,7 @@ withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 
 }
                 }
             }
-        }
+       
         stage('deploy') {
             steps {
                 echo 'Hello World'

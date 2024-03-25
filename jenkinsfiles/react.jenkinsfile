@@ -8,12 +8,13 @@ pipeline {
         }
         stage('build with dockerfile') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                
+                scripts{
+
+withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         docker login -u $USER -p $PASS
 }
-                // scripts{
-
-                // }
+                }
             }
         }
         stage('deploy') {

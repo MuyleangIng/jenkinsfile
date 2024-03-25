@@ -16,6 +16,7 @@ withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 
                        sh """
                         docker login -u $USER -p $PASS
                        echo $USER
+                       echo $PASS
                        """
 }
                 }

@@ -1,6 +1,6 @@
 pipeline {
     environment{
-        imageTag = ${BUILD_NUMBER}
+        imageTag = " ${BUILD_NUMBER}"
     }
     agent any
     stages {

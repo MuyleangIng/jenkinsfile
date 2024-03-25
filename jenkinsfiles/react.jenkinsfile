@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+    stages {
+        stage('git clone') {
+            steps {
+                git 'https://github.com/MuyleangIng/react-project.git'
+            }
+        }
+        stage('build with dockerfile') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        docker login -u $USER -p $PASS
+}
+                // scripts{
+
+                // }
+            }
+        }
+        stage('deploy') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+
+    }
+}

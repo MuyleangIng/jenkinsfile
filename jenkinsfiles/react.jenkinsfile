@@ -1,32 +1,38 @@
 pipeline {
+    environment{
+        imageTag = ${BUILD_NUMBER}
+    }
     agent any
     stages {
         stage('git clone') {
             steps {
                 git 'https://github.com/MuyleangIng/react-project.git'
+                
+                sh "echo :${env.imageTag}"
+                
             }
         }
         stage('build with dockerfile') {
             steps {
-                
                
-
-withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                       
-                       sh """
-                        docker login -u $USER -p $PASS
-                       echo $USER
-                       echo $PASS
-                       """
-}
+withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) { 
+                sh """
+                docker login -p $PASS  -u $USER
+                docker build -t $USER/reactjs:${env.imageTag} .
+                docker push $USER/reactjs:${env.imageTag}
+            
+                """
+                    }
                 }
             }
        
-        stage('deploy') {
-            steps {
-                echo 'Hello World'
-            }
-        }
+        // stage('deploy') {
+        //     steps {
+        //        sh"""
+        //        docker run -d 
+        //        """
+        //     }
+        // }
 
     }
 }

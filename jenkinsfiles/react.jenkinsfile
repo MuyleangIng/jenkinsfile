@@ -12,8 +12,9 @@ pipeline {
                 scripts{
 
 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        docker login -u $USER -p $PASS
+                       
                        sh """
+                        docker login -u $USER -p $PASS
                        echo $USER
                        """
 }

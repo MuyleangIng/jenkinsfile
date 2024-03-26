@@ -20,7 +20,7 @@ pipeline {
                         npm run build
                         '''
                     }  
-                    docker.withRegistry('docker.io', 'dockerhub') {
+                    docker.withRegistry('', 'dockerhub') {
                     def customImage = docker.build("muyleangin/react-project:${BUILD_NUMBER}")
 
                     customImage.push()

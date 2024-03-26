@@ -1,14 +1,6 @@
 pipeline {
     agent any
-
-    environment {
-        // Use double quotes for interpolation
-        imageTag = "${BUILD_NUMBER}"
-    }
-    
-    stages {
-        stage("Git") {
-            input {
+    input {
                 message "Ready to deploy?"
                 ok "Yes"
                 parameters {
@@ -19,8 +11,13 @@ pipeline {
                     choice(name: "TEST_CHOICE", choices: ["production", "staging", "development"], description: "Sample multi-choice parameter")
                 }
             }
-        }
-        
+
+    environment {
+        // Use double quotes for interpolation
+        imageTag = "${BUILD_NUMBER}"
+    }
+    
+    stages {
         stage('Git Clone') {
             steps {
                 script {

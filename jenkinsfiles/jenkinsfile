@@ -1,26 +1,25 @@
 pipeline {
-    agent any;
+    agent {
+        docker {
+            image 'node:18.9.1'
+            args '-u root'
+        }
+    };
     stages {
         stage('git clone ') {
             steps {
                  git 'https://github.com/MuyleangIng/react-project.git'
             }
         }
-        stage('npm install') {
-            steps {
-                sh 'npm install --force'
-                sh 'npm run build'
-            }
-        }
         stage('docker pipeline') {
             steps {
                script{
-                    // docker.image('node:18.9.1').inside{
-                    //     sh '''
-                    //     npm install --force
-                    //     npm run build
-                    //     '''
-                    // }  
+                    docker.image('node:18.9.1').inside{
+                        sh '''
+                        npm install --force
+                        npm run build
+                        '''
+                    }  
                     docker.withRegistry('docker.io', 'dockerhub') {
                     def customImage = docker.build("muyleangin/react-project:${BUILD_NUMBER}")
 

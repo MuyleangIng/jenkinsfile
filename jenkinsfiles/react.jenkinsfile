@@ -1,4 +1,15 @@
 pipeline {
+    agent {
+        label 'built-in'
+    }
+    parameters {
+        booleanParam(name: 'TEST_BOOLEAN', defaultValue: true, description: 'Deploy to production?')
+        string(name: 'imageTag', defaultValue: 'latest', description: 'Tag for the docker image')
+        choice(name: "TEST_CHOICE", choices: ["production", "staging", "development"], description: "Sample 
+      	multi-choice parameter")
+               }
+
+    }
     environment{
         imageTag = "${BUILD_NUMBER}"
     }
@@ -6,33 +17,35 @@ pipeline {
     stages {
         stage('git clone') {
             steps {
-                git 'https://github.com/MuyleangIng/react-project.git'
-                
-                sh "echo :${env.imageTag}"
+                echo "TEST_BOOLEAN: ${TEST_CHOICE}"
+                // git 'https://github.com/MuyleangIng/react-project.git'
+                // sh "echo :${env.imageTag}"
+                script{
+                    def deploy = "${TEST_CHOICE}"
+                    if(deploy == 'production'){
+                        echo "Deploy to production"
+                    }else if(deploy == 'development'){
+                        echo "Deploy to development"
+                    }else if(deploy == 'staging'){
+                        echo "Deploy to staging"
+                    }        
+                }
                 
             }
         }
-        stage('build with dockerfile') {
-            steps {
+//         stage('build with dockerfile') {
+//             steps {
                
-withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) { 
-                sh """
-                docker login -p $PASS  -u $USER
-                docker build -t $USER/reactjs:${env.imageTag} .
-                docker push $USER/reactjs:${env.imageTag}
+// withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) { 
+//                 sh """
+//                 docker login -p $PASS  -u $USER
+//                 docker build -t $USER/reactjs:${env.imageTag} .
+//                 docker push $USER/reactjs:${env.imageTag}
             
-                """
-                    }
-                }
-            }
-       
-        // stage('deploy') {
-        //     steps {
-        //        sh"""
-        //        docker run -d 
-        //        """
-        //     }
-        // }
+//                 """
+//                     }
+//                 }
+//             }
 
-    }
+    
 }

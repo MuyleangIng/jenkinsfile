@@ -31,7 +31,7 @@ pipeline {
                     }
                     def clean_wss = params.CLEAN_WS
                     echo "Clean Workspace: ${clean_wss}"
-                    if (clean_wss = true) {
+                    if (clean_wss == true) {
                         cleanWs()
                     }
        

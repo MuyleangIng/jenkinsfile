@@ -11,6 +11,11 @@ pipeline {
                  git 'https://github.com/MuyleangIng/react-project.git'
             }
         }
+        stage('npm install') {
+            steps {
+                sh 'npm install --force'
+            }
+        }
         stage('docker pipeline') {
             steps {
                script{
@@ -20,7 +25,7 @@ pipeline {
                         npm run build
                         '''
                     }
-                    docker.build("muyleangin/react-project:${BUILD_NUMBER}", ".")
+                    docker.build("muyleangin/react-project:${BUILD_NUMBER}")
                }
             }
         }

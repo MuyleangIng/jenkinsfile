@@ -1,6 +1,7 @@
 pipeline {
     agent any
     parameters {
+        booleanParam(name: "CLEAN_WS", defaultValue: false, description: "Sample boolean parameter")
         booleanParam(name: "TEST_BOOLEAN", defaultValue: true, description: "Sample boolean parameter")
         string(name: "TEST_STRING", defaultValue: "dara", trim: true, description: "Sample string parameter")
         text(name: "TEST_TEXT", defaultValue: "Jenkins Pipeline Tutorial", description: "Sample multi-line text parameter")
@@ -14,6 +15,7 @@ pipeline {
         stage('Git Clone') {
             steps {
                 script {
+                    echo "Clean_ws: ${CLEAN_WS}"
                     echo "TEST_BOOLEAN: ${params.TEST_BOOLEAN}"
                     // Assuming you want to uncomment this:
                     git 'https://github.com/MuyleangIng/react-project.git'
@@ -39,5 +41,12 @@ pipeline {
                 """
             }
         }
+    }
+    always {
+       script {
+           if (${CLEAN_WS} = true) {
+               cleanWs()
+           }
+       }
     }
 }

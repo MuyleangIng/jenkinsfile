@@ -12,7 +12,6 @@ pipeline {
                     docker.image('node:18.9.1').inside{
                         sh 'npm run build'
                     }
-                    docker build -t muyleangin/reactjs:1.1 .
                     docker.build("muyleangin/react-project:${BUILD_NUMBER}")
                }
             }

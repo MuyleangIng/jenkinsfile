@@ -2,18 +2,27 @@ pipeline {
     agent {
         label 'built-in'
     }
-    parameters {
-        booleanParam(name: 'TEST_BOOLEAN', defaultValue: true, description: 'Deploy to production?')
-        string(name: 'imageTag', defaultValue: 'latest', description: 'Tag for the docker image')
-        choice(name: "TEST_CHOICE", choices: ["production", "staging", "development"], description: "Sample multi-choice parameter")
-    }
+    input {
+     message "Ready to deploy?"
+     ok "Yes"
+     parameters {
+     booleanParam(name: "TEST_BOOLEAN", defaultValue: true, description: "Sample boolean parameter")
+     string(name: "TEST_STRING", defaultValue: "dara", trim: true, description: "Sample string parameter")
+     text(name: "TEST_TEXT", defaultValue: "Jenkins Pipeline Tutorial", description: "Sample multi-line  
+         text parameter")
+     password(name: "TEST_PASSWORD", defaultValue: "SECRET", description: "Sample password parameter")
+     choice(name: "TEST_CHOICE", choices: ["production", "staging", "development"], description: "Sample 
+      	multi-choice parameter")
+               }
+           }
+
     environment{
         imageTag = "${BUILD_NUMBER}"
     }
     stages {
         stage('git clone') {
             steps {
-                echo "TEST_BOOLEAN: ${TEST_CHOICE}"
+                echo "TEST_BOOLEAN: ${TEST_BOOLEAN}"
                 // git 'https://github.com/MuyleangIng/react-project.git'
                 // sh "echo :${env.imageTag}"
                 script{

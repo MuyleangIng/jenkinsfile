@@ -1,48 +1,20 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:18.9.1'
-            args '-u root'
-        }
-    };
+    agent any;
+    parameters{
+        choice(name: "TEST_CHOICE", choices: ["production", "staging", "development"], description: "Sample multi-choice parameter")
+    }
     stages {
-        stage('git clone ') {
-            steps {
-                 git 'https://github.com/MuyleangIng/react-project.git'
+        stage('test choice'){
+            steps{
+                echo "${TEST_CHOICE}"
+                script{
+                    def gitbranch = "${TEST_CHOICE}"
+                    echo "brahc git :" gitbranch 
+                }
             }
+
         }
-        stage('docker pipeline') {
-            steps {
-               script{
-                    docker.image('node:18.9.1').inside{
-                        sh '''
-                        npm install --force
-                        npm run build
-                        '''
-                    }  
-                    docker.withRegistry('', 'dockerhub') {
-                    def customImage = docker.build("muyleangin/react-project:${BUILD_NUMBER}")
-
-                    customImage.push()
-                    }
-               }
-            }
-        }
-    
-
+        
     }
-    post{
-        always {
-           cleanWs()
-       }
-       success{
-              echo "This block only runs if the pipeline was successful."
-       }
-         failure{
-                  echo "This block only runs if the pipeline was broken."
-         }
-
-
-    }
-
+   
 }

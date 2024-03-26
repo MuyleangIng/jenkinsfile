@@ -1,5 +1,7 @@
 pipeline {
-    agent any;
+    agent {
+        label 'built-in'
+    }
     parameters {
         booleanParam(name: 'TEST_BOOLEAN', defaultValue: true, description: 'Deploy to production?')
         string(name: 'imageTag', defaultValue: 'latest', description: 'Tag for the docker image')
@@ -8,7 +10,6 @@ pipeline {
     environment{
         imageTag = "${BUILD_NUMBER}"
     }
-    agent any
     stages {
         stage('git clone') {
             steps {

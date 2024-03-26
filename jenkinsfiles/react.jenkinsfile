@@ -29,9 +29,9 @@ pipeline {
                     } else if (deploy == 'staging') {
                         echo "Deploy to staging"
                     }
-                    def clean_ws = params.CLEAN_WS
-                    echo "Clean Workspace: ${clean_ws}"
-                    if (clean_ws = true) {
+                    def clean_wss = params.CLEAN_WS
+                    echo "Clean Workspace: ${clean_wss}"
+                    if (clean_wss = true) {
                         cleanWs()
                     }
        

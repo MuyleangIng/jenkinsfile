@@ -27,16 +27,12 @@ pipeline {
                }
             }
         }
-        stage('clean workspace'){
-            steps{
-                cleanWs()
-            }
-        }
+    
 
     }
     post{
         always {
-           echo "This block always runs."
+           cleanWs()
        }
        success{
               echo "This block only runs if the pipeline was successful."

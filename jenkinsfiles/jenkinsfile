@@ -10,11 +10,12 @@ pipeline {
                 script{
                     def gitbranch = "${TEST_CHOICE}"
                     if(gitbranch == "production") {
-                        echo "production"
+                       git branch: 'production', url: 'https://github.com/MuyleangIng/react-project.git'
                     }else if(gitbranch == "staging"){
-                        echo "staging" 
+                       git branch: 'staging', url: 'https://github.com/MuyleangIng/react-project.git'
                     }else(gitbranch == "development") {
-                        echo "development"
+                       git branch: 'development', url: 'https://github.com/MuyleangIng/react-project.git'
+
                     }
                 }
             }

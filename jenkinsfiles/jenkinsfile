@@ -13,9 +13,8 @@ pipeline {
                        git branch: 'production', url: 'https://github.com/MuyleangIng/react-project.git'
                     }else if(gitbranch == "staging"){
                        git branch: 'staging', url: 'https://github.com/MuyleangIng/react-project.git'
-                    }else(gitbranch == "development") {
+                    }else{
                        git branch: 'staging', url: 'https://github.com/MuyleangIng/react-project.git'
-
                     }
                 }
             }

@@ -9,7 +9,13 @@ pipeline {
                 echo "${TEST_CHOICE}"
                 script{
                     def gitbranch = "${TEST_CHOICE}"
-                    echo "brahc git :" gitbranch 
+                    if(gitbranch == production) {
+                        echo "production"
+                    }else if(gitbranch == staging){
+                        echo "staging" 
+                    }else(gitbranch == development) {
+                        echo "development"
+                    }
                 }
             }
 

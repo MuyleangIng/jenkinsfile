@@ -5,11 +5,8 @@ pipeline {
     parameters {
         booleanParam(name: 'TEST_BOOLEAN', defaultValue: true, description: 'Deploy to production?')
         string(name: 'imageTag', defaultValue: 'latest', description: 'Tag for the docker image')
-        choice(name: "TEST_CHOICE", choices: ["production", "staging", "development"], description: "Sample 
-      	multi-choice parameter")
-               }
-
-    
+        choice(name: "TEST_CHOICE", choices: ["production", "staging", "development"], description: "Sample multi-choice parameter")
+    }
     environment{
         imageTag = "${BUILD_NUMBER}"
     }
@@ -33,19 +30,6 @@ pipeline {
                 
             }
         }
-//         stage('build with dockerfile') {
-//             steps {
-               
-// withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) { 
-//                 sh """
-//                 docker login -p $PASS  -u $USER
-//                 docker build -t $USER/reactjs:${env.imageTag} .
-//                 docker push $USER/reactjs:${env.imageTag}
-            
-//                 """
-//                     }
-//                 }
-//             }
 
     }
 }

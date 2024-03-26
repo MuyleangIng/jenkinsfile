@@ -29,6 +29,15 @@ pipeline {
                 
             }
         }
+        stage('Deploy') {
+                   steps {
+                       sh """
+                           touch deploy.txt
+                           echo 'JOB: ${JOB_NAME}, BUILD: ${BUILD_NUMBER} deploy success!'
+                       """
+                   }
+               }
+
 
     }
 }

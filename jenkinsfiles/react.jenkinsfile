@@ -9,7 +9,7 @@ pipeline {
       	multi-choice parameter")
                }
 
-    }
+    
     environment{
         imageTag = "${BUILD_NUMBER}"
     }
@@ -47,5 +47,5 @@ pipeline {
 //                 }
 //             }
 
-    
+    }
 }

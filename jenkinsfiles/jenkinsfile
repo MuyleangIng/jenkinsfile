@@ -16,7 +16,6 @@ pipeline {
                script{
                     docker.image('node:18.9.1').inside{
                         sh '''
-                        npm install --force
                         npm run build
                         '''
                     }  
@@ -33,6 +32,19 @@ pipeline {
                 cleanWs()
             }
         }
+
+    }
+    post{
+        always {
+           echo "This block always runs."
+       }
+       success{
+              echo "This block only runs if the pipeline was successful."
+       }
+         failure{
+                  echo "This block only runs if the pipeline was broken."
+         }
+
 
     }
 

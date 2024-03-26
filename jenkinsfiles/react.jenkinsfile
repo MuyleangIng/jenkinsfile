@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'built-in'
-    }
+    agent any;
     parameters {
         booleanParam(name: 'TEST_BOOLEAN', defaultValue: true, description: 'Deploy to production?')
         string(name: 'imageTag', defaultValue: 'latest', description: 'Tag for the docker image')

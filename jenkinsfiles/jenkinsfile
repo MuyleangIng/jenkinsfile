@@ -14,7 +14,7 @@ pipeline {
         stage('docker pipeline') {
             steps {
                script{
-                    docker.image('node:18.9.1').inside{
+                    docker.image('node:lts').inside{
                         sh 'npm run build'
                     }
                     docker.build("muyleangin/react-project:${BUILD_NUMBER}", ".")

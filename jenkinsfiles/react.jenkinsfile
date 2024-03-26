@@ -29,6 +29,12 @@ pipeline {
                     } else if (deploy == 'staging') {
                         echo "Deploy to staging"
                     }
+                    def clean_ws = params.CLEAN_WS
+                    echo "Clean Workspace: ${clean_ws}"
+                    if (clean_ws = true) {
+                        cleanWs()
+                    }
+       
                 }
             }
         }
@@ -41,12 +47,5 @@ pipeline {
                 """
             }
         }
-    }
-    always {
-       script {
-           if (${CLEAN_WS} = true) {
-               cleanWs()
-           }
-       }
     }
 }

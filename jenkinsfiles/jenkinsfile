@@ -14,7 +14,7 @@ pipeline {
                     }else if(gitbranch == "staging"){
                        git branch: 'staging', url: 'https://github.com/MuyleangIng/react-project.git'
                     }else(gitbranch == "development") {
-                       git branch: 'development', url: 'https://github.com/MuyleangIng/react-project.git'
+                       git branch: 'staging', url: 'https://github.com/MuyleangIng/react-project.git'
 
                     }
                 }

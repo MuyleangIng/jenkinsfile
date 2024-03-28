@@ -2,13 +2,17 @@ pipeline {
     agent any;
     parameters{
              booleanParam(name: "TEST_BOOLEAN", defaultValue: true, description: "Sample boolean parameter")
-
         choice(name: "TEST_CHOICE", choices: ["production", "staging", "development"], description: "Sample multi-choice parameter")
+    }
+    environment{
+        TEST_BOOLEAN = ${params.TEST_BOOLEAN}
     }
     stages {
         stage('test choice'){
             steps{
-                echo "${TEST_CHOICE}"
+
+                echo "${env.tag}"
+                echo "${params.TEST_CHOICE}"
                 script{
                     def gitbranch = "${TEST_CHOICE}"
                     if(gitbranch == "production") {
